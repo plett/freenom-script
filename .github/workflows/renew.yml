@@ -1,0 +1,13 @@
+name: Renew domain(s)
+on:
+  workflow_dispatch
+  
+jobs:
+  renew:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - run: freenom-script.sh -u -a
+        env:
+        freenom_email = ${{ secrets.FREENOM_EMAIL }}
+        freenom_passwd = ${{ secrets.FREENOM_PASSWD }}
