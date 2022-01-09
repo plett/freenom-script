@@ -12,3 +12,4 @@ jobs:
           freenom_email: ${{ secrets.FREENOM_EMAIL }}
           freenom_passwd: ${{ secrets.FREENOM_PASSWD }}
           debug: 1
+      - run: cat /tmp/freenom.log
