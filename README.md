@@ -4,7 +4,7 @@
 
 ## Last Update ##
 
-***Latest version: v2022-08-01 ([CHANGES.md](CHANGES.md))***
+***Latest version: v2022-01-08 ([CHANGES.md](CHANGES.md))***
 
 **Make sure to add new config options when updating script**
 
@@ -13,7 +13,7 @@
 This shell script makes sure your Freenom domains don't expire by auto renewing them.
 It's original functionality of updating an A record with the clients ip address is also retained.
 
-You'll need to have already registered an account at Freenom.com with at least one (free) domain added before you can run the script.
+You'll need to have already registered an account at Freenom.com with at least one (free) domain added, before you can run the script.
 
 ## Usage
 
@@ -64,9 +64,11 @@ _Note that this shell script requires recent versions of "Bash" and "cURL"_
 
 Run `make install` from git clone directory to automatically install the script, conf file and to configure scheduler.
 
-### Manually
+### Manual install
 
-Suggested installation path: "/usr/local/bin" and "/usr/local/etc" for the config file
+Suggested installation path: "/usr/local/bin"
+
+And for the config file: "/usr/local/etc" 
 
 ## Configuration
 
@@ -101,7 +103,7 @@ To manually configure cron:
 1) Copy script and conf files (see [Installation](#installation))
 2) Copy [cron.d/freenom](cron.d/freenom) to "/etc/cron.d/freenom" and edit it, or create the file yourself with these line(s)
 
-Example:
+#### Example
 
 ``` bash
 0 9 * * 0 root bash -c 'sleep $((RANDOM \% 60))m; /usr/local/bin/freenom.sh -r -a'
@@ -126,7 +128,7 @@ Thanks to [@sdcloudt](https://github.com/sdcloudt) you can use the template unit
 
 3) Reload systemd
 
-Example:
+#### Example
 
 ``` bash
 # Create symlinks:
@@ -165,32 +167,9 @@ Leaving the `APPRISE_SERVER_URLS` array empty disables Apprise notifications.
 
 ## Optional Overrides
 
-The following options can be changed in config, they are however OK to leave as-is.
+Default settings such as retries and timeouts can be changed in config, they are however OK to leave as-is.
 
-``` bash
-freenom_http_retry="3"        # number of curl retries
-freenom_update_force="0"      # [0/1] force ip update, even if unchanged
-freenom_update_ttl="3600"     # ttl in sec (changed from 14440 to 3600)
-freenom_update_ip_retry="3"   # number of retries to get ip
-freenom_update_ip_log="1"     # [0/1] log 'skipped same ip' msg
-freenom_renew_log="1"         # [0/1] log renew warnings details
-freenom_list_bind="0"         # [0/1] output isc bind zone format
-freenom_http_sleep="3 3"      # wait n to n+n secs between http requests
-freenom_oldcurl_force="0"     # [0/1] force older curl version support
-```
-
-### Actions
-
-``` bash
-freenom_update_ip="0"         # [0/1] arg "-u"
-freenom_update_manual="0"     # [0/1] arg "-m"
-freenom_update_all="0"        # [0/1] arg "-a" (future update, not working yet)
-freenom_list="0"              # [0/1] arg "-l"
-freenom_list_renewals="0"     # [0/1] args "-l -d"
-freenom_list_records="0"      # [0/1] arg "-z"
-freenom_renew_domain="0"      # [0/1] arg "-r"
-freenom_renew_all="0"         # [0/1] args "-r -a"
-```
+See [Overrides.md](Overrides.md)
 
 ## DynDNS
 
@@ -227,11 +206,11 @@ In case of issues try running curl and dig command manually.
 ## Files
 
 - **Installer:** `Makefile`
-- **Script:** `freenom.sh` and `freenom.conf`
+- **Script/cfg:** `freenom.sh` and `freenom.conf`
 - **Output:**
   - Path: `"/var/log/freenom/"` (default)
   - Files: `freenom.log`, `freenom_<domain>.ip{4,6}`, `freenom_renewalResult-<id>.html`
-- **Details:** use `freenom.sh -o` to view Result html files
+- **View details:** use `freenom.sh -o` to view Result html files
   
 Also see comment "Output files" and `freenom_out_dir` variable in conf.
 
@@ -249,10 +228,12 @@ You can also manually reverse the steps under [Installation](#installation) abov
 
 ## Sources
 
+See included [orig](orig) dir
+
 - Original script: [gist.github.com/a-c-t-i-n-i-u-m/bc4b1ff265b277dbf195](https://gist.github.com/a-c-t-i-n-i-u-m/bc4b1ff265b277dbf195)
 - Updated script: [gist.github.com/pgaulon/3a844a626458f56903d88c5bb1463cc6](https://gist.github.com/pgaulon/3a844a626458f56903d88c5bb1463cc6)
-- Reference: [github.com/dabendan2/freenom-dns](https://github.com/dabendan2/freenom-dns) (npm)
-- Reference: [github.com/patrikx3/freenom](https://github.com/patrikx3/freenom) (npm)
+- Reference: [github.com/dabendan2/freenom-dns](https://github.com/dabendan2/freenom-dns) (nodejs/npm)
+- Reference: [github.com/patrikx3/freenom](https://github.com/patrikx3/freenom) (nodejs/npm)
 
 ## Changes
 
