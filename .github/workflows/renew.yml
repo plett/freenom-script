@@ -1,6 +1,6 @@
 name: Renew domain(s)
 on:
-  workflow_dispatch
+  workflow_dispatch:
   schedule:
     - cron: "5 4 * * 1"
   
