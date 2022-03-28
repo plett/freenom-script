@@ -2,7 +2,8 @@ name: Renew domain(s)
 on:
   workflow_dispatch:
   schedule:
-    - cron: "5 4 * * 1"
+    - cron: "5 4 26 3 *" # matches start of renewal window - no need to ping them every week unnecessarily
+    - cron: "5 4 2 4 *" # second attempt a week later, in case first fails and isn't noticed
   
 jobs:
   renew:
